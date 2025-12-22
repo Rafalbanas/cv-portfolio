@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rafał Banaś - CV & Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --accent-hover: #2980b9;
+            --text-color: #333;
+            --text-light: #666;
+            --bg-color: #f0f2f5;
+            --white: #ffffff;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- LOGIKA JĘZYKOWA --- */
+        body.pl .lang-en { display: none !important; }
+        body.en .lang-pl { display: none !important; }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Przełącznik języka */
+        .lang-switch {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            z-index: 200;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 10px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .lang-btn {
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 15px;
+            transition: var(--transition);
+            color: #888;
+        }
+
+        .lang-btn.active {
+            background-color: var(--accent-color);
+            color: white;
+            box-shadow: 0 2px 5px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Główny kontener */
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: var(--white);
+            box-shadow: var(--card-shadow);
+            border-radius: 15px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            min-height: 90vh;
+            opacity: 0;
+            animation: fadeInPage 0.8s forwards;
+            position: relative;
+        }
+
+        @keyframes fadeInPage {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- SIDEBAR (Lewa kolumna) --- */
+        .sidebar {
+            background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            padding: 40px 30px;
+            text-align: left;
+            position: relative;
+        }
+
+        .sidebar-content-wrapper {
+            position: sticky;
+            top: 40px;
+        }
+
+        .profile-img-container {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .profile-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: var(--transition);
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05) rotate(2deg);
+            border-color: var(--accent-color);
+        }
+
+        .sidebar h3 {
+            color: var(--white);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 40px;
+        }
+        
+        .sidebar h3:first-of-type { margin-top: 0; }
+
+        .contact-item {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+        }
+
+        .contact-item i {
+            margin-right: 15px;
+            color: var(--accent-color);
+            width: 20px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .contact-item a, .contact-item span {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            word-break: break-word;
+        }
+
+        /* Sekcja Umiejętności */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background: rgba(255,255,255,0.1);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            transition: var(--transition);
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .skill-tag:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* --- MAIN CONTENT (Prawa kolumna) --- */
+        .main-content {
+            padding: 50px;
+            position: relative;
+        }
+
+        /* Header */
+        .header-name {
+            margin-bottom: 50px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 30px;
+            padding-right: 100px;
+        }
+
+        .header-name h1 {
+            margin: 0;
+            font-size: 3em;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        .header-name h2 {
+            margin: 10px 0 0;
+            font-size: 1.4em;
+            color: var(--accent-color);
+            font-weight: 500;
+            height: 1.5em;
+        }
+        
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: var(--accent-color);
+            animation: blink 1s infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Sekcje */
+        .section { margin-bottom: 50px; }
+
+        .section-title {
+            font-size: 1.6em;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 20px;
+            font-weight: 700;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            height: 25px;
+            width: 5px;
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            bottom: 0;
+            width: 2px;
+            background: #e0e0e0;
+        }
+
+        .timeline-item {
+            margin-bottom: 35px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--accent-color);
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .timeline-item:hover::before {
+            background: var(--accent-color);
+            transform: scale(1.3);
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+        }
+
+        .timeline-content-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #eee;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            transition: var(--transition);
+        }
+
+        .timeline-item:hover .timeline-content-box {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-color: #d6eaf8;
+        }
+
+        .timeline-title {
+            font-weight: 700;
+            font-size: 1.2em;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .timeline-subtitle {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            color: var(--accent-color);
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timeline-date {
+            font-size: 0.85em;
+            color: #888;
+            background: #f8f9fa;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: normal;
+        }
+
+        .timeline-content ul {
+            padding-left: 20px;
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        .timeline-content li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Tooltip */
+        .copy-tooltip {
+            position: fixed;
+            background: #2c3e50;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            display: none;
+            z-index: 1000;
+            pointer-events: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        .footer-clause {
+            font-size: 0.7em;
+            color: #aaa;
+            margin-top: 60px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            text-align: justify;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .header-name { padding-right: 0; margin-top: 40px; }
+            .lang-switch { top: 15px; right: 15px; }
+            .sidebar { text-align: center; padding: 40px 20px; }
+            .sidebar-content-wrapper { position: static; }
+            .contact-item { justify-content: center; }
+            .skills-container { justify-content: center; }
+            .main-content { padding: 30px 20px; }
+            .timeline-subtitle { flex-direction: column; align-items: flex-start; gap: 5px; }
+        }
+
+        @media print {
+            .lang-switch { display: none; }
+            body { background: white; }
+            .container { box-shadow: none; margin: 0; width: 100%; border-radius: 0; display: block; }
+            .sidebar { padding: 20px; background: #eee !important; color: #000 !important; -webkit-print-color-adjust: exact; }
+            .sidebar h3, .contact-item a, .contact-item span { color: #000 !important; }
+            .main-content { padding: 20px; }
+            .reveal-element { opacity: 1 !important; transform: none !important; }
+        }
+    </style>
+</head>
+<body class="pl">
+
+<div class="copy-tooltip" id="copyTooltip">Skopiowano!</div>
+
+<div class="container">
+    
+    <div class="lang-switch">
+        <span class="lang-btn active" onclick="setLanguage('pl')" id="btn-pl">PL</span>
+        |
+        <span class="lang-btn" onclick="setLanguage('en')" id="btn-en">EN</span>
+    </div>
+
+    <aside class="sidebar">
+        <div class="sidebar-content-wrapper">
+            <div class="profile-img-container">
+                <img src="cv_photo.jpg" alt="Rafał Banaś" class="profile-img">
+            </div>
+
+            <div class="contact-info">
+                <h3>
+                    <span class="lang-pl">Kontakt</span>
+                    <span class="lang-en">Contact</span>
+                </h3>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i> <span>Katowice, Polska</span>
+                </div>
+                <div class="contact-item" id="emailContact" title="Kliknij, aby skopiować">
+                    <i class="fas fa-envelope"></i> 
+                    <span>kontakt@twojadomena.pl</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i> 
+                    <a href="tel:+48000000000">+48 000 000 000</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-linkedin"></i> 
+                    <a href="https://linkedin.com/in/twoj-profil" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+
+            <div class="skills-section">
+                <h3>
+                    <span class="lang-pl">Umiejętności</span>
+                    <span class="lang-en">Skills</span>
+                </h3>
+                <div class="skills-container">
+                    <span class="skill-tag"><i class="fab fa-windows"></i> Windows / AD</span>
+                    <span class="skill-tag"><i class="fab fa-linux"></i> Linux</span>
+                    <span class="skill-tag"><i class="fab fa-apple"></i> MacOS</span>
+                    <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+                    <span class="skill-tag"><i class="fas fa-terminal"></i> PowerShell</span>
+                    <span class="skill-tag"><i class="fas fa-code"></i> Bash</span>
+                    <span class="skill-tag"><i class="fas fa-database"></i> MS SQL</span>
+                    <span class="skill-tag"><i class="fas fa-network-wired"></i> Network & Mikrotik</span>
+                    <span class="skill-tag"><i class="fas fa-server"></i> VMware / Proxmox</span>
+                    <span class="skill-tag"><i class="fab fa-docker"></i> Docker</span>
+                    <span class="skill-tag"><i class="fas fa-hdd"></i> NAS</span>
+                    <span class="skill-tag"><i class="fas fa-language"></i> English (B2)</span>
+                </div>
+            </div>
+
+            <div class="hobbies-section">
+                <h3>
+                    <span class="lang-pl">Hobby</span>
+                    <span class="lang-en">Hobbies</span>
+                </h3>
+                <div class="contact-item"><i class="fas fa-bicycle"></i> 
+                    <span class="lang-pl">Rower</span><span class="lang-en">Cycling</span>
+                </div>
+                <div class="contact-item"><i class="fas fa-running"></i> 
+                    <span class="lang-pl">Bieganie</span><span class="lang-en">Running</span>
+                </div>
+                <div class="contact-item"><i class="fas fa-car"></i> 
+                    <span class="lang-pl">Motoryzacja</span><span class="lang-en">Automotive</span>
+                </div>
+                <div class="contact-item"><i class="fas fa-mountain"></i> 
+                    <span class="lang-pl">Wspinaczka</span><span class="lang-en">Climbing</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="header-name reveal-element">
+            <h1>Rafał Banaś</h1>
+            <h2><span id="typing-text"></span><span class="typing-cursor"></span></h2>
+        </header>
+
+        <section class="section reveal-element" id="about">
+            <h3 class="section-title">
+                <span class="lang-pl">O mnie</span>
+                <span class="lang-en">About Me</span>
+            </h3>
+            <p style="font-size: 1.05em; color: #555;">
+                <span class="lang-pl">
+                    Ludzie opisują mnie jako osobę miłą, empatyczną i przyjazną. Uważam się za gracza zespołowego, pasjonata technologii i sportu. Pomagając klientom wewnętrznym, koncentruję się na wypracowaniu rozwiązań i osiągnięciu wspólnego celu.
+                </span>
+                <span class="lang-en">
+                    People describe me as a kind, empathetic and nice-to-be-around person. 
+                    I consider myself a team player, tech and sport geek. 
+                    While helping internal customers I focus on working out solutions and the common goal.
+                </span>
+            </p>
+        </section>
+
+        <section class="section" id="experience">
+            <h3 class="section-title reveal-element">
+                <span class="lang-pl">Doświadczenie Zawodowe</span>
+                <span class="lang-en">Professional Experience</span>
+            </h3>
+            
+            <div class="timeline">
+                
+                <div class="timeline-item reveal-element">
+                    <div class="timeline-content-box">
+                        <div class="timeline-title">
+                            <span class="lang-pl">Specjalista IT</span>
+                            <span class="lang-en">IT Specialist</span>
+                        </div>
+                        <div class="timeline-subtitle">
+                            <span>Madej Wróbel Sp. z o.o.</span>
+                            <span class="timeline-date">
+                                <span class="lang-pl">Październik 2025 - Obecnie</span>
+                                <span class="lang-en">October 2025 - Present</span>
+                            </span>
+                        </div>
+                        <div class="timeline-content">
+                            <ul>
+                                <li class="lang-pl">Wsparcie użytkowników końcowych (Helpdesk) oraz rozwiązywanie problemów sprzętowych i programowych.</li>
+                                <li class="lang-pl">Administracja systemami operacyjnymi i aplikacjami biurowymi.</li>
+                                <li class="lang-pl">Utrzymanie ciągłości działania infrastruktury IT.</li>
+
+                                <li class="lang-en">End-user support (Helpdesk) and troubleshooting hardware and software issues.</li>
+                                <li class="lang-en">Administration of operating systems and office applications.</li>
+                                <li class="lang-en">Maintaining IT infrastructure continuity.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal-element">
+                    <div class="timeline-content-box">
+                        <div class="timeline-title">
+                            <span class="lang-pl">Specjalista IT</span>
+                            <span class="lang-en">IT Specialist</span>
+                        </div>
+                        <div class="timeline-subtitle">
+                            <span>Elmiko Sp. z o.o.</span>
+                            <span class="timeline-date">
+                                <span class="lang-pl">Czerwiec 2024 - Sierpień 2025</span>
+                                <span class="lang-en"> June 2024 - August 2025</span>
+                            </span>
+                        </div>
+                        <div class="timeline-content">
+                            <ul>
+                                <li class="lang-pl">Utrzymanie i konfiguracja sprzętu IT oraz sieci komputerowych.</li>
+                                <li class="lang-pl">Administracja kontami użytkowników i zarządzanie dostępem w Active Directory.</li>
+                                <li class="lang-pl">Monitorowanie i rozwiązywanie problemów (troubleshooting).</li>
+                                <li class="lang-pl">Wsparcie użytkowników wewnętrznych i współpraca z dostawcami.</li>
+                                <li class="lang-pl">Utrzymanie sieci (routery Mikrotik, VPN, tunele).</li>
+
+                                <li class="lang-en"> Maintenance and configuration of IT equipment and computer networks.</li>
+                                <li class="lang-en"> Administration of user accounts and access management in Active Directory.</li>
+                                <li class="lang-en"> Monitoring and troubleshooting.</li>
+                                <li class="lang-en"> Supporting internal user & working with vendors.</li>
+                                <li class="lang-en"> Maintaining network (mikrotik routers, VPN, tunnels).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal-element">
+                    <div class="timeline-content-box">
+                        <div class="timeline-title">
+                            <span class="lang-pl">Specjalista IT</span>
+                            <span class="lang-en">IT Specialist</span>
+                        </div>
+                        <div class="timeline-subtitle">
+                            <span>Farby Kabe Sp. z o.o.</span>
+                            <span class="timeline-date">
+                                <span class="lang-pl">Marzec 2023 - Maj 2024</span>
+                                <span class="lang-en"> March 2023 - May 2024</span>
+                            </span>
+                        </div>
+                        <div class="timeline-content">
+                            <ul>
+                                <li class="lang-pl">Utrzymanie i konfiguracja sprzętu IT.</li>
+                                <li class="lang-pl">Administracja kontami użytkowników (AD).</li>
+                                <li class="lang-pl">Konfiguracja nowych serwerów (VMware ESXi, Windows Server).</li>
+                                <li class="lang-pl">Tworzenie baz danych MS SQL i utrzymanie sieci (Mikrotik, VPN, Fortigate).</li>
+
+                                <li class="lang-en"> Maintenance and configuration of IT equipment and computer networks.</li>
+                                <li class="lang-en"> Administration of user accounts and access management in Active Directory.</li>
+                                <li class="lang-en"> Configuring new servers with VMware Esxi or Windows server.</li>
+                                <li class="lang-en"> Creating database in Ms SQL and maintaining network (mikrotik routers, VPN, fortigate).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal-element">
+                    <div class="timeline-content-box">
+                        <div class="timeline-title">
+                            <span class="lang-pl">Młodszy Programista PLC</span>
+                            <span class="lang-en">Junior PLC Programmer</span>
+                        </div>
+                        <div class="timeline-subtitle">
+                            <span>ISP Polska Sp. z o.o.</span>
+                            <span class="timeline-date">
+                                <span class="lang-pl">Grudzień 2021 - Maj 2022</span>
+                                <span class="lang-en"> December 2021 - May 2022</span>
+                            </span>
+                        </div>
+                        <div class="timeline-content">
+                            <ul>
+                                <li class="lang-pl">Tworzenie wizualizacji HMI offline dla paneli sterowniczych.</li>
+                                <li class="lang-pl">Uruchomienie stacji transportu akumulatorów w fabryce VW Emden (Siemens S7-1500).</li>
+
+                                <li class="lang-en"> Creating HMI visualizations offline for control panels.</li>
+                                <li class="lang-en"> Commissioning of a battery transport station at the VW Emden factory using Siemens S7-1500 controllers.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal-element">
+                    <div class="timeline-content-box">
+                        <div class="timeline-title">
+                            <span class="lang-pl">Młodszy Inżynier Automatyk</span>
+                            <span class="lang-en">Junior Automation Engineer</span>
+                        </div>
+                        <div class="timeline-subtitle">
+                            <span>Dgk Instal Sp z o.o.</span>
+                            <span class="timeline-date">
+                                <span class="lang-pl">Marzec 2021 - Grudzień 2021</span>
+                                <span class="lang-en"> March 2021 - December 2021</span>
+                            </span>
+                        </div>
+                        <div class="timeline-content">
+                            <ul>
+                                <li class="lang-pl">Wsparcie przy projektach z zakresu automatyki i robotyki.</li>
+                                <li class="lang-pl">Pomoc przy relokacji maszyn.</li>
+
+                                <li class="lang-en"> Assisted with automation and robotics projects.</li>
+                                <li class="lang-en"> Assisted with machine relocation tasks.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section" id="education">
+            <h3 class="section-title reveal-element">
+                <span class="lang-pl">Edukacja</span>
+                <span class="lang-en">Education</span>
+            </h3>
+            
+            <div class="timeline">
+                <div class="timeline-item reveal-element">
+                    <div class="timeline-content-box">
+                        <div class="timeline-title">
+                            <span class="lang-pl">Uniwersytet Ekonomiczny w Katowicach</span>
+                            <span class="lang-en">University of Economics in Katowice</span>
+                        </div>
+                        <div class="timeline-subtitle">
+                            <span class="lang-pl">Magister, Informatyka (Programowanie Systemów Inteligentnych)</span>
+                            <span class="lang-en"> Master's Degree, Computer Science (Intelligent Systems Programming)</span>
+                            <span class="timeline-date">
+                                <span class="lang-pl">2022 - Obecnie</span>
+                                <span class="lang-en">2022 - Present</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal-element">
+                    <div class="timeline-content-box">
+                        <div class="timeline-title">
+                            <span class="lang-pl">Politechnika Śląska</span>
+                            <span class="lang-en">Silesian University of Technology</span>
+                        </div>
+                        <div class="timeline-subtitle">
+                            <span class="lang-pl">Inżynier, Automatyka i Robotyka</span>
+                            <span class="lang-en"> Bachelor's Degree, Automation and Robotics</span>
+                            <span class="timeline-date">2018 - 2022</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal-element">
+                    <div class="timeline-content-box">
+                        <div class="timeline-title">
+                            <span class="lang-pl">Śląskie Techniczne Zakłady Naukowe</span>
+                            <span class="lang-en">Technical School No. 17 in Katowice "Śl.TZN"</span>
+                        </div>
+                        <div class="timeline-subtitle">
+                            <span class="lang-pl">Technik Mechatronik</span>
+                            <span class="lang-en"> Mechatronics</span>
+                            <span class="timeline-date">2014 - 2018</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="footer-clause">
+            <span class="lang-pl">
+                Wyrażam zgodę na przetwarzanie danych osobowych zawartych w niniejszym dokumencie do realizacji procesu rekrutacji zgodnie z ustawą z dnia 10 maja 2018 roku o ochronie danych osobowych (Dz. Ustaw z 2018, poz. 1000) oraz zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (RODO).
+            </span>
+            <span class="lang-en">
+                I agree to the processing of personal data provided in this document for realising the recruitment process pursuant to the Personal Data Protection Act of 10 May 2018 (Journal of Laws 2018, item 1000) and in agreement with Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation).
+            </span>
+        </div>
+    </main>
+</div>
+
+<script>
+    const textPl = "Specjalista IT / Automatyk";
+    const textEn = "IT Specialist / Automation Engineer";
+    
+    let currentLang = localStorage.getItem('cv_lang') || 'pl';
+    let typeWriterTimeout;
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        document.body.className = lang;
+        localStorage.setItem('cv_lang', lang);
+
+        document.getElementById('btn-pl').classList.toggle('active', lang === 'pl');
+        document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+
+        startTyping(lang === 'pl' ? textPl : textEn);
+    }
+
+    function startTyping(text) {
+        const typingElement = document.getElementById('typing-text');
+        
+        if (typeWriterTimeout) clearTimeout(typeWriterTimeout);
+        
+        typingElement.innerHTML = '';
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (charIndex < text.length) {
+                typingElement.innerHTML += text.charAt(charIndex);
+                charIndex++;
+                typeWriterTimeout = setTimeout(typeWriter, 50);
+            }
+        }
+        typeWriter();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        setLanguage(currentLang);
+
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-element').forEach(el => observer.observe(el));
+
+        // --- SKRYPT DO KOPIOWANIA (TERAZ KOPIUJE PLACEHOLDER) ---
+        const emailContact = document.getElementById('emailContact');
+        const tooltip = document.getElementById('copyTooltip');
+
+        if(emailContact) {
+            emailContact.addEventListener('click', function(e) {
+                // TUTAJ ZMIEŃ NA SWÓJ EMAIL PO WRZUCENIU NA VPS
+                const email = 'kontakt@twojadomena.pl'; 
+                
+                navigator.clipboard.writeText(email).then(() => {
+                    tooltip.textContent = currentLang === 'pl' ? 'Skopiowano email!' : 'Email copied!';
+                    tooltip.style.display = 'block';
+                    tooltip.style.left = e.clientX + 'px';
+                    tooltip.style.top = (e.clientY - 40) + 'px';
+                    
+                    setTimeout(() => {
+                        tooltip.style.display = 'none';
+                    }, 2000);
+                });
+            });
+        }
+        
+        console.log("%c CV Rafała Banasia wczytane pomyślnie. ", "background: #3498db; color: #fff; padding: 5px; border-radius: 5px;");
+    });
+</script>
+
+</body>
+</html>
