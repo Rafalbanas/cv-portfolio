@@ -165,7 +165,6 @@
             border: 5px solid rgba(255,255,255,0.2);
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
             transition: var(--transition);
-            /* ZMIANA: KURSOR WSKAZUJĄCY NA KLIKALNOŚĆ */
             cursor: pointer;
         }
 
@@ -660,15 +659,15 @@
                 </div>
                 <div class="contact-item" id="emailContact" title="Kliknij, aby skopiować">
                     <i class="fas fa-envelope"></i> 
-                    <span>kontakt@twojadomena.pl</span>
+                    <span id="emailLabel">Wyślij wiadomość / Send message</span>
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-phone"></i> 
-                    <a href="tel:+48000000000">+48 000 000 000</a>
+                    <a href="tel:+48663900399">+48 663 900 399</a>
                 </div>
                 <div class="contact-item">
                     <i class="fab fa-linkedin"></i> 
-                    <a href="https://linkedin.com/in/twoj-profil" target="_blank">LinkedIn</a>
+                    <a href="https://linkedin.com/in/rafał-banaś-251583152" target="_blank">LinkedIn</a>
                 </div>
                 <div class="contact-item">
                     <i class="fab fa-github"></i> 
@@ -1101,11 +1100,9 @@
     }
     
     // --- GALERIA ZDJĘĆ ---
-    // Tu wpisz nazwy plików, które masz na serwerze (np. ['cv_photo.jpg', 'cv_photo2.jpg'])
     const photos = ['cv_photo.jpg', 'cv_photo2.jpg']; 
     let photoIndex = 0;
     
-    // Preload zdjęć (żeby nie było mignięcia)
     photos.forEach(src => {
         const img = new Image();
         img.src = src;
@@ -1115,7 +1112,6 @@
     if(profileImg) {
         profileImg.addEventListener('click', () => {
             photoIndex = (photoIndex + 1) % photos.length;
-            // Dodaj mały efekt zanikania
             profileImg.style.opacity = 0;
             setTimeout(() => {
                 profileImg.src = photos[photoIndex];
@@ -1145,23 +1141,29 @@
 
         document.querySelectorAll('.reveal-element').forEach(el => observer.observe(el));
 
-        // --- KOPIOWANIE EMAILA ---
+        // --- BEZPIECZNE KOPIOWANIE EMAILA ---
         const emailContact = document.getElementById('emailContact');
         const tooltip = document.getElementById('copyTooltip');
 
         if(emailContact) {
             emailContact.addEventListener('click', function(e) {
-                const email = 'kontakt@twojadomena.pl'; 
+                // Rozbijamy email na części, żeby boty go nie odczytały w kodzie
+                const user = 'kontakt';
+                const domain = 'banas.dev';
+                const email = user + '@' + domain;
                 
                 navigator.clipboard.writeText(email).then(() => {
-                    tooltip.textContent = currentLang === 'pl' ? 'Skopiowano email!' : 'Email copied!';
+                    tooltip.textContent = currentLang === 'pl' ? 'Skopiowano: ' + email : 'Copied: ' + email;
                     tooltip.style.display = 'block';
                     tooltip.style.left = e.clientX + 'px';
                     tooltip.style.top = (e.clientY - 40) + 'px';
                     
+                    // Opcjonalnie: Zmień tekst na stronie na ten skopiowany
+                    document.getElementById('emailLabel').textContent = email;
+                    
                     setTimeout(() => {
                         tooltip.style.display = 'none';
-                    }, 2000);
+                    }, 3000);
                 });
             });
         }
